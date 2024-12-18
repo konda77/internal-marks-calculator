@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SRGEC Internal Marks Evaluation</title>
+    <style>
+        form {
+            text-align: center;
+            border: 1px solid black;
+            margin-left: 25%;
+            margin-right: 25%;
+            padding-bottom: 10px;
+            border-color: green;
+        }
+        .result {
+            text-align: center;
+        }
+        .table {
+            padding-top: 150px;
+        }
+    </style>
+</head>
+<body>
+<div class="table">
+    <form id="form" onsubmit="calculate(); return false;">
+        <h1>Internal Marks</h1>
+        <label for="mid1">Mid 1</label>
+        <input type="text" id="mid1"> <br><br>
+        <label for="mid2">Mid 2</label>
+        <input type="text" id="mid2"> <br> <br>
+        <input type="submit" value="Calculate">
+    </form>
+    <div class="result">
+        <h2 id="result"></h2>
+    </div>
+</div>  
+
+<script>
+    function calculate() {
+        let mid1 = parseInt(document.getElementById("mid1").value, 10);
+        let mid2 = parseInt(document.getElementById("mid2").value, 10);
+
+        if (isNaN(mid1) || isNaN(mid2) && mid1 > 30 || mid2 > 30) {
+            document.getElementById("result").innerHTML = "Please enter valid numbers for both inputs.";
+            return;
+        }
+       
+
+        let result = (0.7 * mid1) + (0.3 * mid2);
+        result = Math.ceil(result);
+
+        document.getElementById("result").innerHTML = "Result: " + result;
+    }
+</script>
+</body>
+</html>
