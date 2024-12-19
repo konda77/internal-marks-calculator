@@ -6,136 +6,123 @@
     <title>SRGEC Internal Marks Evaluation</title>
     <style>
         * {
+            font-family: sans-serif;
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: "Arial", sans-serif;
         }
 
         body {
-            background-color: #121212;
-            color: #fff;
-            font-size: 16px;
-            line-height: 1.5;
-            padding: 20px;
-        }
-
-        h1, h2 {
-            text-align: center;
-            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #f5f5f5;
         }
 
         form {
+            text-align: center;
+            border: 1px solid green;
+            background-color: rgb(40, 25, 25);
+            border-radius: 15px;
+            padding: 20px;
+            color: white;
             max-width: 400px;
             margin: 20px auto;
-            padding: 20px;
-            border: 2px solid #4CAF50;
-            background-color: #1e1e1e;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        form p {
-            font-size: 20px;
-            margin-bottom: 10px;
-        }
-
-        label {
-            display: block;
-            margin: 10px 0 5px;
-            font-size: 16px;
-        }
-
-        input[type="text"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        #btn {
-            display: block;
-            width: 100%;
-            padding: 10px;
-            font-size: 18px;
-            color: #fff;
-            background-color: #007BFF;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        #btn:hover {
-            background-color: #0056b3;
         }
 
         .result {
+            margin-top: 20px;
+            padding: 20px;
+            color: white;
+            border: 1px solid green;
+            background-color: rgb(40, 25, 25);
+            border-radius: 15px;
             max-width: 400px;
             margin: 20px auto;
-            padding: 20px;
-            text-align: center;
-            border: 2px solid #4CAF50;
-            background-color: #1e1e1e;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
-        .result p {
-            font-size: 18px;
+        form p{
+            color: rgb(193, 9, 9);
+            margin-bottom: 10px;
+        }
+
+        input[type="text"] {
+            background-color: rgb(239, 236, 232);
+            width: 90%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: none;
+        }
+
+        #btn {
+            border-radius: 50px;
+            background-color: blue;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            padding-left: 110px;
+            padding-right: 110px;
+        }
+
+        #btn:hover {
+            background-color: darkblue;
         }
 
         #result {
             font-size: 24px;
-            font-weight: bold;
-            color: #4CAF50;
-            margin-top: 10px;
+            text-align: center;
         }
 
-        @media (max-width: 480px) {
+        /* Responsive Design */
+        @media (max-width: 768px) {
             form, .result {
                 padding: 15px;
+                max-width: 90%;
             }
 
-            form p, label, #btn, .result p {
-                font-size: 16px;
+            #btn {
+                margin: 0 auto;
+                display: block;
             }
 
-            #result {
-                font-size: 20px;
+            input[type="text"] {
+                width: 100%;
             }
         }
     </style>
 </head>
 <body>
-    <h1>SRGEC Internal Marks Evaluation</h1>
+<div class="table">
     <form id="form" onsubmit="calculate(); return false;">
         <p>Internal Marks Calculator</p>
-        <label for="mid1">Enter Mid 1 Marks</label>
-        <input type="text" id="mid1" placeholder="Enter marks (max 30)" required>
-        <label for="mid2">Enter Mid 2 Marks</label>
-        <input type="text" id="mid2" placeholder="Enter marks (max 30)" required>
+        <label for="mid1">Enter Mid 1 marks</label>
+        <input type="text" id="mid1"> <br>
+        <label for="mid2">Enter Mid 2 marks</label>
+        <input type="text" id="mid2"> <br>
         <input type="submit" value="Calculate Internal" id="btn">
     </form>
     <div class="result">
-        <p>Calculated Internal Marks</p>
+        <p>Internal Marks</p>
         <p id="result"></p>
     </div>
+</div>
 
-    <script>
-        function calculate() {
-            let mid1 = parseInt(document.getElementById("mid1").value, 10);
-            let mid2 = parseInt(document.getElementById("mid2").value, 10);
+<script>
+    function calculate() {
+        let mid1 = parseInt(document.getElementById("mid1").value, 10);
+        let mid2 = parseInt(document.getElementById("mid2").value, 10);
 
-            if (isNaN(mid1) || isNaN(mid2) || mid1 > 30 || mid2 > 30 || mid1 < 0 || mid2 < 0) {
-                document.getElementById("result").innerHTML = "Please enter valid numbers between 0 and 30.";
-                return;
-            }
-
-            let result = Math.ceil((0.7 * mid1) + (0.3 * mid2));
-            document.getElementById("result").innerHTML = `Your Internal Marks: ${result}`;
+        if (isNaN(mid1) || isNaN(mid2)) {
+            document.getElementById("result").innerHTML = "Invalid marks";
+            return;
         }
-    </script>
+        if (mid1 > 30 || mid2 > 30) {
+            document.getElementById("result").innerHTML = "Marks should not exceed 30.";
+            return;
+        }
+        let result = Math.ceil(0.7 * mid1 + 0.3 * mid2);
+        document.getElementById("result").innerHTML = result;
+    }
+</script>
 </body>
 </html>
