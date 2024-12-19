@@ -5,53 +5,137 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SRGEC Internal Marks Evaluation</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Arial", sans-serif;
+        }
+
+        body {
+            background-color: #121212;
+            color: #fff;
+            font-size: 16px;
+            line-height: 1.5;
+            padding: 20px;
+        }
+
+        h1, h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
         form {
-            text-align: center;
-            border: 1px solid black;
-            margin-left: 25%;
-            margin-right: 25%;
-            padding-bottom: 10px;
-            border-color: green;
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 2px solid #4CAF50;
+            background-color: #1e1e1e;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
+
+        form p {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-size: 16px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        #btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            font-size: 18px;
+            color: #fff;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #btn:hover {
+            background-color: #0056b3;
+        }
+
         .result {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
             text-align: center;
+            border: 2px solid #4CAF50;
+            background-color: #1e1e1e;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
-        .table {
-            padding-top: 150px;
+
+        .result p {
+            font-size: 18px;
+        }
+
+        #result {
+            font-size: 24px;
+            font-weight: bold;
+            color: #4CAF50;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 480px) {
+            form, .result {
+                padding: 15px;
+            }
+
+            form p, label, #btn, .result p {
+                font-size: 16px;
+            }
+
+            #result {
+                font-size: 20px;
+            }
         }
     </style>
 </head>
 <body>
-<div class="table">
+    <h1>SRGEC Internal Marks Evaluation</h1>
     <form id="form" onsubmit="calculate(); return false;">
-        <h1>Internal Marks</h1>
-        <label for="mid1">Mid 1</label>
-        <input type="text" id="mid1"> <br><br>
-        <label for="mid2">Mid 2</label>
-        <input type="text" id="mid2"> <br> <br>
-        <input type="submit" value="Calculate">
+        <p>Internal Marks Calculator</p>
+        <label for="mid1">Enter Mid 1 Marks</label>
+        <input type="text" id="mid1" placeholder="Enter marks (max 30)" required>
+        <label for="mid2">Enter Mid 2 Marks</label>
+        <input type="text" id="mid2" placeholder="Enter marks (max 30)" required>
+        <input type="submit" value="Calculate Internal" id="btn">
     </form>
     <div class="result">
-        <h2 id="result"></h2>
+        <p>Calculated Internal Marks</p>
+        <p id="result"></p>
     </div>
-</div>  
 
-<script>
-    function calculate() {
-        let mid1 = parseInt(document.getElementById("mid1").value, 10);
-        let mid2 = parseInt(document.getElementById("mid2").value, 10);
+    <script>
+        function calculate() {
+            let mid1 = parseInt(document.getElementById("mid1").value, 10);
+            let mid2 = parseInt(document.getElementById("mid2").value, 10);
 
-        if (isNaN(mid1) || isNaN(mid2) && mid1 > 30 || mid2 > 30) {
-            document.getElementById("result").innerHTML = "Please enter valid numbers for both inputs.";
-            return;
+            if (isNaN(mid1) || isNaN(mid2) || mid1 > 30 || mid2 > 30 || mid1 < 0 || mid2 < 0) {
+                document.getElementById("result").innerHTML = "Please enter valid numbers between 0 and 30.";
+                return;
+            }
+
+            let result = Math.ceil((0.7 * mid1) + (0.3 * mid2));
+            document.getElementById("result").innerHTML = `Your Internal Marks: ${result}`;
         }
-       
-
-        let result = (0.7 * mid1) + (0.3 * mid2);
-        result = Math.ceil(result);
-
-        document.getElementById("result").innerHTML = "Result: " + result;
-    }
-</script>
+    </script>
 </body>
 </html>
